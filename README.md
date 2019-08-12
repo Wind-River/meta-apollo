@@ -4,7 +4,7 @@ This layer depends on meta-ros and meta-java. Add the absolute paths to these tw
 
 Add the following lines to your local.conf:
 
-PNWHITELIST_remove += "apollo meta-java ros-layer"
+PNWHITELIST_LAYERS_remove += "apollo meta-java ros-layer"
 
 If you have issues with your Java version, also adding the following lines may help:
 
