@@ -28,9 +28,6 @@ def bazel_get_flags(d):
             continue
         flags += "--conlyopt=%s " % i
 
-    for i in d.getVar("BUILD_CFLAGS").split():
-        flags += "--host_conlyopt=%s " % i
-
     for i in d.getVar("CXXFLAGS").split():
         if i == "-g":
             continue
@@ -44,9 +41,6 @@ def bazel_get_flags(d):
             continue
         flags += "--conlyopt=%s --cxxopt=%s " % (i, i)
 
-    for i in d.getVar("BUILD_CPPFLAGS").split():
-        flags += "--host_conlyopt=%s --host_cxxopt=%s " % (i, i)
-
     for i in d.getVar("LDFLAGS").split():
         if i == "-Wl,--as-needed":
             continue
@@ -55,7 +49,6 @@ def bazel_get_flags(d):
     for i in d.getVar("BUILD_LDFLAGS").split():
         if i == "-Wl,--as-needed":
             continue
-        flags += "--host_linkopt=%s " % i
 
     for i in d.getVar("TOOLCHAIN_OPTIONS").split():
         if i == "-Wl,--as-needed":
@@ -74,13 +67,11 @@ test --verbose_failures --verbose_test_summary
 test --spawn_strategy=standalone --genrule_strategy=standalone
 
 build --linkopt=-Wl,-latomic
-build --linkopt=-Wl,--no-as-needed
-build --host_linkopt=-Wl,--no-as-needed
 
 build --strip=never
 
 fetch --distdir=${TS_DL_DIR}
-build --distdir=${TS_DL_DIR}
+build 
 
 EOF
 
