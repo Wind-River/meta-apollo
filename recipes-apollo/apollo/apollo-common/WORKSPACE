@@ -222,8 +222,9 @@ new_http_archive(
 )
 
 #protobuf 3.3
-http_archive(
+new_http_archive(
     name = "com_google_protobuf",
+    build_file = "third_party/tinyxml2.BUILD",
     strip_prefix = "protobuf-3.3.0",
     url = "file:///home/tmp/protobuf-3.3.0.tar.gz",
 )
@@ -267,13 +268,14 @@ new_local_repository(
 new_local_repository(
     name = "fastrtps",
     build_file = "third_party/fastrtps.BUILD",
-    path = "/usr/local/fast-rtps",
+    path = "/home/tmp/fast-rtps",
 )
 
 # grpc
-http_archive(
+new_http_archive(
     name = "com_github_grpc_grpc",
     url = "file:///home/tmp/v1.14.2.tar.gz",
+    build_file = "third_party/adv_plat.BUILD",
     strip_prefix = "grpc-1.14.2",
 )
 
