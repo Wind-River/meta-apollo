@@ -11,6 +11,10 @@ DEPENDS = " \
 	
 SRC_URI[md5sum] = "7ba09a3712767dceba58835f70811d03"
 
+DEPENDS = " \
+        fastrtps \
+        protobuf-native \
+"
 
 S = "${WORKDIR}/apollo-5.0.0"
 
@@ -22,12 +26,13 @@ inherit bazel
 do_compile () {
     #mv WORKSPACE.in WORKSPACE
     unset CC
+    BUILD_TARGETS=`${S}/bazel query //cyber/...`
     ${S}/bazel build \
         -c opt \
         --subcommands --explain=${T}/explain.log \
         --verbose_explanations --verbose_failures \
         --verbose_failures \
-        //modules/common
+        ${BUILD_TARGETS}
 
     ${S}/bazel shutdown
 }
