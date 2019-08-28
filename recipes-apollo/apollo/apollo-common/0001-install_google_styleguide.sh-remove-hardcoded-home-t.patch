@@ -1,0 +1,28 @@
+From d2a2a89e8169072c70c0a9624f29d20e3ab244ae Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Tue, 27 Aug 2019 08:12:02 +0000
+Subject: [PATCH] install_google_styleguide.sh: remove hardcoded /home/tmp
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ docker/build/installers/install_google_styleguide.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/docker/build/installers/install_google_styleguide.sh b/docker/build/installers/install_google_styleguide.sh
+index 497fed8..84fca42 100755
+--- a/docker/build/installers/install_google_styleguide.sh
++++ b/docker/build/installers/install_google_styleguide.sh
+@@ -21,7 +21,7 @@ set -e
+ 
+ REPO="https://github.com/google/styleguide.git"
+ COMMIT="159b4c81bbca97a9ca00f1195a37174388398a67"
+-DIR="/home/tmp/google_styleguide"
++DIR="./google_styleguide"
+ 
+ git clone "${REPO}" "${DIR}"
+ pushd "${DIR}"
+-- 
+2.17.1
+

@@ -1,0 +1,29 @@
+From d0b3ee9fe266bdbdd1a0fcddb4ede44fe3d79f9d Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Tue, 27 Aug 2019 07:09:11 +0000
+Subject: [PATCH] install_bazel_packages.sh: remove hardcoded /home/tmp
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ docker/build/installers/install_bazel_packages.sh | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/docker/build/installers/install_bazel_packages.sh b/docker/build/installers/install_bazel_packages.sh
+index 3224883..2f1ece3 100755
+--- a/docker/build/installers/install_bazel_packages.sh
++++ b/docker/build/installers/install_bazel_packages.sh
+@@ -19,9 +19,6 @@
+ # Fail on first error.
+ set -e
+ 
+-mkdir -p /home/tmp
+-cd /home/tmp
+-
+ wget -O opencv-2.4.13.2.zip \
+     https://github.com/opencv/opencv/archive/2.4.13.2.zip
+ wget -O googletest-release-1.8.0.tar.gz \
+-- 
+2.17.1
+
