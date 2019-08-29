@@ -30,6 +30,7 @@ DEPENDS = " \
     poco \
     libtinyxml2 \
     asio \
+    util-linux \
 "
 	
 SRC_URI[md5sum] = "7ba09a3712767dceba58835f70811d03"
