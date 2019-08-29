@@ -1,0 +1,46 @@
+From 686a2addffa386b389563b98728510cf0daff857 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Thu, 29 Aug 2019 14:10:15 +0000
+Subject: [PATCH] gcc-7 requires include <functional> for std::function
+
+Fixes compile error:
+...
+./cyber/data/cache_buffer.h:33:31: error: 'function' in namespace 'std' does not name a template type
+   using FusionCallback = std::function<void(const T&)>;
+...
+
+Upstream-Status: Pending
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ cyber/base/object_pool.h  | 1 +
+ cyber/data/cache_buffer.h | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/cyber/base/object_pool.h b/cyber/base/object_pool.h
+index 30c5944..461f1bb 100644
+--- a/cyber/base/object_pool.h
++++ b/cyber/base/object_pool.h
+@@ -17,6 +17,7 @@
+ #ifndef CYBER_BASE_OBJECT_POOL_H_
+ #define CYBER_BASE_OBJECT_POOL_H_
+ 
++#include <functional>
+ #include <algorithm>
+ #include <cstdlib>
+ #include <cstring>
+diff --git a/cyber/data/cache_buffer.h b/cyber/data/cache_buffer.h
+index 08bb87b..643a277 100644
+--- a/cyber/data/cache_buffer.h
++++ b/cyber/data/cache_buffer.h
+@@ -17,6 +17,7 @@
+ #ifndef CYBER_DATA_CACHE_BUFFER_H_
+ #define CYBER_DATA_CACHE_BUFFER_H_
+ 
++#include <functional>
+ #include <memory>
+ #include <mutex>
+ #include <vector>
+-- 
+2.17.1
+
