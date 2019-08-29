@@ -9,6 +9,7 @@ SRC_URI = "https://github.com/ApolloAuto/apollo/archive/v5.0.0.tar.gz \
            file://0001-protobuf.bzl-compatible-with-future-versions-of-Baze.patch \
            file://0001-support-cross-compiling-on-Yocto.patch \
            file://0001-support-cross-compiling-on-Yocto-2.patch \
+           file://0001-fix-build-error-while-gcc-7.1.patch \
            file://WORKSPACE \
            file://BUILD \
            file://BUILD.yocto_compiler \
