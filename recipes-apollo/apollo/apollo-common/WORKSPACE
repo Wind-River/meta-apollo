@@ -302,7 +302,7 @@ grpc_deps()
 new_local_repository(
     name = "python27",
     build_file = "third_party/python27.BUILD",
-    path = "/usr",
+    path = "%%WORKDIR%%/recipe-sysroot/usr",
 )
 
 # PyTorch
