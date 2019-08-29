@@ -1,3 +1,14 @@
+From e31a37bc9cb53de5085e885b190652f994209cf6 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Tue, 23 Apr 2019 05:21:40 -0400
+Subject: [PATCH] HttpDownloader: save download tarball to distdir
+
+It is helpful for collecting tarball url which supports offline build.
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
  .../repository/downloader/HttpDownloader.java      | 50 ++++++++++++++--------
  1 file changed, 32 insertions(+), 18 deletions(-)
 
@@ -73,3 +84,4 @@ index 18d10d2..cf71ac4 100755
  
 -- 
 2.8.1
+

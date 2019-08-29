@@ -1,0 +1,31 @@
+From fdbe90c0a4253be53222c90ec60d1a599b285db7 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Wed, 28 Aug 2019 08:36:29 +0000
+Subject: [PATCH] tweak install dir while enabling multilib
+
+Set ConfigPackageLocation according to ${CMAKE_INSTALL_LIBDIR}
+rather than hardcoded
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 991d75e..e97129f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -376,7 +376,7 @@ endif()
+ # Create CMake packages for the install directory
+ # ----------------------------------------------
+ 
+-set(ConfigPackageLocation lib/cmake/osqp)
++set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/osqp)
+ 
+ install(EXPORT ${PROJECT_NAME}
+         FILE osqp-targets.cmake
+-- 
+2.17.1
+

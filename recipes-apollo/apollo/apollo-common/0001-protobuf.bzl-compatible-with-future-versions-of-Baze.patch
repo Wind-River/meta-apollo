@@ -1,0 +1,80 @@
+From 274072d059abe416dd17d53a9007ebbe82259fa2 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Wed, 28 Aug 2019 07:31:49 +0000
+Subject: [PATCH] protobuf.bzl: compatible with future versions of Bazel
+
+Backport two commits from upstream to compatible with future versions of Bazel
+[4fcb36c remove PACKAGE_NAME and REPOSITORY_NAME deprecated usage (#4650)]
+[4fc9304 Make .bzl files compatible with future versions of Baze]
+
+Upstream-Status: Backport
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ ...patible-with-future-versions-of-Baze.patch | 54 +++++++++++++++++++
+ 1 file changed, 54 insertions(+)
+ create mode 100644 0001-protobuf.bzl-compatible-with-future-versions-of-Baze.patch
+
+diff --git a/0001-protobuf.bzl-compatible-with-future-versions-of-Baze.patch b/0001-protobuf.bzl-compatible-with-future-versions-of-Baze.patch
+new file mode 100644
+index 0000000..3ac33cc
+--- /dev/null
++++ b/0001-protobuf.bzl-compatible-with-future-versions-of-Baze.patch
+@@ -0,0 +1,54 @@
++From bfac499cbd032c219bba6b1809e99027ff42c5e3 Mon Sep 17 00:00:00 2001
++From: Hongxu Jia <hongxu.jia@windriver.com>
++Date: Wed, 28 Aug 2019 03:21:37 +0000
++Subject: [PATCH] protobuf.bzl: compatible with future versions of Bazel
++
++Backport two commits from upstream to compatible with future versions of Bazel
++[4fcb36c remove PACKAGE_NAME and REPOSITORY_NAME deprecated usage (#4650)]
++[4fc9304 Make .bzl files compatible with future versions of Baze]
++
++Upstream-Status: Backport
++Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
++---
++ protobuf.bzl | 10 +++++-----
++ 1 file changed, 5 insertions(+), 5 deletions(-)
++
++diff --git a/protobuf.bzl b/protobuf.bzl
++index 73c396d..aca97fd 100644
++--- a/protobuf.bzl
+++++ b/protobuf.bzl
++@@ -244,9 +244,9 @@ def cc_proto_library(
++   )
++ 
++   if default_runtime and not default_runtime in cc_libs:
++-    cc_libs += [default_runtime]
+++    cc_libs = cc_libs + [default_runtime]
++   if use_grpc_plugin:
++-    cc_libs += ["//external:grpc_lib"]
+++    cc_libs = cc_libs + ["//external:grpc_lib"]
++ 
++   native.cc_library(
++       name=name,
++@@ -262,8 +262,8 @@ def internal_gen_well_known_protos_java(srcs):
++   Args:
++     srcs: the well known protos
++   """
++-  root = Label("%s//protobuf_java" % (REPOSITORY_NAME)).workspace_root
++-  pkg = PACKAGE_NAME + "/" if PACKAGE_NAME else ""
+++  root = Label("%s//protobuf_java" % (native.repository_name())).workspace_root
+++  pkg = native.package_name() + "/" if native.package_name() else ""
++   if root == "":
++     include = " -I%ssrc " % pkg
++   else:
++@@ -370,7 +370,7 @@ def py_proto_library(
++   )
++ 
++   if default_runtime and not default_runtime in py_libs + deps:
++-    py_libs += [default_runtime]
+++    py_libs = py_libs + [default_runtime]
++ 
++   native.py_library(
++       name=name,
++-- 
++2.17.1
++
+-- 
+2.17.1
+
