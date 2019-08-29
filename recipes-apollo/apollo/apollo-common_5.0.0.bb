@@ -85,6 +85,8 @@ do_compile () {
         --verbose_failures \
         --cpu=armeabi \
         --crosstool_top=@local_config_yocto_compiler//:toolchain \
+        --linkopt=-Wl,-lfastrtps \
+        --linkopt=-Wl,-lfastcdr \
         ${BUILD_TARGETS}
 
     ${BAZEL} shutdown
