@@ -92,3 +92,11 @@ do_compile () {
 
     ${BAZEL} shutdown
 }
+
+do_install () {
+    mkdir -p ${D}${libdir}
+    install -m 644 ${S}/bazel-bin/_solib_armeabi/* ${D}${libdir}/
+}
+
+FILES_${PN}-dev = ""
+FILES_${PN} = "${libdir}/*"
