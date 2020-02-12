@@ -1,3 +1,23 @@
+# The following file is dual licensed and is available under either
+# the GPL version 2 or a Wind River commercial license.
+# *********************************************************************
+# Copyright (c) 2019-2020 Wind River Systems, Inc. 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+# *********************************************************************
+# Copyright (c) 2019-2020 Wind River Systems, Inc. 
+# The right to copy, distribute, modify, or otherwise make use
+# of this software may be licensed pursuant to the terms
+# of an applicable Wind River license agreement.
+
 DESCRIPTION = "Java runtime based upon the OpenJDK Project, the community \
 builds using source code from OpenJDK project"
 LICENSE = "GPL-2.0-with-classpath-exception"
