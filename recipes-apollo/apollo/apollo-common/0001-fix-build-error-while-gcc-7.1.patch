@@ -1,0 +1,48 @@
+# Copyright (c) 2019-2020 Wind River Systems, Inc. 
+# Licensed under the Apache License, Version 2.0 (the "License"); 
+# you may not use this file except in compliance with the License. 
+# You may obtain a copy of the License at: 
+#       http://www.apache.org/licenses/LICENSE-2.0 
+# Unless required by applicable law or agreed to in writing, software  distributed 
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+# OR CONDITIONS OF ANY KIND, either express or implied. 
+
+
+From 6bd146065ec6ddc9fb5fbdae677d4ae87b6f3c89 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Wed, 28 Aug 2019 15:15:59 +0000
+Subject: [PATCH] fix build error while gcc > 7.1
+
+...
+./cyber/class_loader/class_loader.h:91:26: error: 'bind' is not a member of 'std'
+   91 |       class_object, std::bind(&ClassLoader::OnClassObjDeleter<Base>, this,
+      |                          ^~~~
+./cyber/class_loader/class_loader.h:26:1: note: 'std::bind' is defined in header '<functional>'; did you forget to '#include <functional>'?
+   25 | #include "cyber/class_loader/class_loader_register_macro.h"
+  +++ |+#include <functional>
+...
+
+Add a missing functional include to fix the issue
+
+Upstream-Status: Pending
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ cyber/class_loader/class_loader.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/cyber/class_loader/class_loader.h b/cyber/class_loader/class_loader.h
+index 68e0550..5c4ad83 100644
+--- a/cyber/class_loader/class_loader.h
++++ b/cyber/class_loader/class_loader.h
+@@ -23,6 +23,7 @@
+ #include <vector>
+ 
+ #include "cyber/class_loader/class_loader_register_macro.h"
++#include <functional>
+ 
+ namespace apollo {
+ namespace cyber {
+-- 
+2.17.1
+

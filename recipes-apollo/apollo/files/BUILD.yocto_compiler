@@ -1,0 +1,91 @@
+# Copyright (c) 2019-2020 Wind River Systems, Inc. 
+# Licensed under the Apache License, Version 2.0 (the "License"); 
+# you may not use this file except in compliance with the License. 
+# You may obtain a copy of the License at: 
+#       http://www.apache.org/licenses/LICENSE-2.0 
+# Unless required by applicable law or agreed to in writing, software  distributed 
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+# OR CONDITIONS OF ANY KIND, either express or implied. 
+
+package(default_visibility = ['//visibility:public'])
+
+filegroup(
+  name = 'gcc',
+  srcs = [
+    'recipe-sysroot-native/usr/bin/%%CT_NAME%%/%%CT_NAME%%-gcc',
+  ],
+)
+
+filegroup(
+  name = 'ar',
+  srcs = [
+    'recipe-sysroot-native/usr/bin/%%CT_NAME%%/%%CT_NAME%%-ar',
+  ],
+)
+
+filegroup(
+  name = 'ld',
+  srcs = [
+    'recipe-sysroot-native/usr/bin/%%CT_NAME%%/%%CT_NAME%%-ld',
+  ],
+)
+
+filegroup(
+  name = 'nm',
+  srcs = [
+    'recipe-sysroot-native/usr/bin/%%CT_NAME%%/%%CT_NAME%%-nm',
+  ],
+)
+
+filegroup(
+  name = 'objcopy',
+  srcs = [
+    'recipe-sysroot-native/usr/bin/%%CT_NAME%%/%%CT_NAME%%-objcopy',
+  ],
+)
+
+filegroup(
+  name = 'objdump',
+  srcs = [
+    'recipe-sysroot-native/usr/bin/%%CT_NAME%%/%%CT_NAME%%-objdump',
+  ],
+)
+
+filegroup(
+  name = 'strip',
+  srcs = [
+    'recipe-sysroot-native/usr/bin/%%CT_NAME%%/%%CT_NAME%%-strip',
+  ],
+)
+
+filegroup(
+  name = 'as',
+  srcs = [
+    'recipe-sysroot-native/usr/bin/%%CT_NAME%%/%%CT_NAME%%-as',
+  ],
+)
+
+filegroup(
+  name = 'compiler_pieces',
+  srcs = glob([
+    'recipe-sysroot-native/usr/include/**',
+    'recipe-sysroot-native/usr/lib/%%CT_NAME%%/**',
+    'recipe-sysroot-native/usr/lib/%%CT_NAME%%/gcc/**',
+    'recipe-sysroot-native/usr/libexec/%%CT_NAME%%/**',
+    'recipe-sysroot/usr/include/**',
+  ]),
+)
+
+filegroup(
+  name = 'compiler_components',
+  srcs = [
+    ':gcc',
+    ':ar',
+    ':ld',
+    ':nm',
+    ':objcopy',
+    ':objdump',
+    ':strip',
+    ':as',
+  ],
+)

@@ -1,0 +1,40 @@
+# Copyright (c) 2019-2020 Wind River Systems, Inc. 
+# Licensed under the Apache License, Version 2.0 (the "License"); 
+# you may not use this file except in compliance with the License. 
+# You may obtain a copy of the License at: 
+#       http://www.apache.org/licenses/LICENSE-2.0 
+# Unless required by applicable law or agreed to in writing, software  distributed 
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+# OR CONDITIONS OF ANY KIND, either express or implied. 
+
+From 55a8e278c87f7281a0b0f21c65899021da4db13b Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Fri, 30 Aug 2019 03:07:32 +0000
+Subject: [PATCH] fix linker error
+
+The wildcard `lib/*.so.*' introduced incorrect libraries at link time
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ third_party/fastrtps.BUILD | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/third_party/fastrtps.BUILD b/third_party/fastrtps.BUILD
+index 6520034..0c6aa4c 100644
+--- a/third_party/fastrtps.BUILD
++++ b/third_party/fastrtps.BUILD
+@@ -1,9 +1,5 @@
+ cc_library(
+     name = "fastrtps",
+-    srcs = glob([
+-        "lib/*.so.*",
+-        "lib/*.so",
+-    ]),
+     includes = [
+         "include",
+     ],
+-- 
+2.17.1
+

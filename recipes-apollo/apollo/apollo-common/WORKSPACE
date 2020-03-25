@@ -1,0 +1,336 @@
+# Copyright (c) 2019-2020 Wind River Systems, Inc. 
+# Licensed under the Apache License, Version 2.0 (the "License"); 
+# you may not use this file except in compliance with the License. 
+# You may obtain a copy of the License at: 
+#       http://www.apache.org/licenses/LICENSE-2.0 
+# Unless required by applicable law or agreed to in writing, software  distributed 
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+# OR CONDITIONS OF ANY KIND, either express or implied. 
+
+workspace(name = "apollo")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("//third_party/toolchains/yocto:yocto_compiler_configure.bzl", "yocto_compiler_configure")
+
+new_local_repository(
+    name = "yocto_compiler",
+    path = "%%WORKDIR%%",
+    build_file = "//:BUILD.yocto_compiler",
+)
+
+# Point //external/local_config_yocto_compiler to //external/yocto_compiler
+yocto_compiler_configure(
+    name = "local_config_yocto_compiler",
+    build_file = "//third_party/toolchains/yocto:BUILD",
+    remote_config_repo = "../yocto_compiler",
+)
+
+# googletest (GTest and GMock)
+http_archive(
+    name = "gtest",
+    build_file = "//:third_party/gtest.BUILD",
+    sha256 = "58a6f4277ca2bc8565222b3bbd58a177609e9c488e8a72649359ba51450db7d8",
+    strip_prefix = "googletest-release-1.8.0",
+    url = "file://%%WORKDIR%%/third_src/googletest-release-1.8.0.tar.gz",
+)
+
+# gflags
+new_local_repository(
+    name = "com_github_gflags_gflags",
+    build_file = "third_party/gflags.BUILD",
+    path = "%%WORKDIR%%/recipe-sysroot/usr/include/gflags",
+)
+
+bind(
+    name = "gflags",
+    actual = "@com_github_gflags_gflags//:gflags",
+)
+
+# glog
+new_local_repository(
+    name = "glog",
+    build_file = "third_party/glog.BUILD",
+    path = "%%WORKDIR%%/recipe-sysroot/usr/include/glog",
+)
+
+# Google Benchmark
+http_archive(
+    name = "benchmark",
+    build_file = "third_party/benchmark.BUILD",
+    sha256 = "e7334dd254434c6668e33a54c8f839194c7c61840d52f4b6258eee28e9f3b20e",
+    strip_prefix = "benchmark-1.1.0",
+    url = "file://%%WORKDIR%%/third_src/benchmark-1.1.0.tar.gz",
+)
+
+# cpplint from google style guide
+new_local_repository(
+    name = "google_styleguide",
+    build_file = "third_party/google_styleguide.BUILD",
+    path = "%%WORKDIR%%/third_src/google_styleguide",
+)
+
+#ad-rss-lib
+new_git_repository(
+    name = "ad_rss_lib",
+    build_file = "third_party/rss_lib.BUILD",
+    tag = "v1.1.0",
+    remote = "https://github.com/intel/ad-rss-lib",
+)
+
+
+# eigen
+http_archive(
+    name = "eigen",
+    build_file = "//:third_party/eigen.BUILD",
+    sha256 = "04f8a4fa4afedaae721c1a1c756afeea20d3cdef0ce3293982cf1c518f178502",
+    strip_prefix = "eigen-eigen-b9cd8366d4e8",
+    url = "file://%%WORKDIR%%/third_src/eigen-3.2.10.tar.gz",
+)
+
+# CivetWeb (web server)
+http_archive(
+    name = "civetweb",
+    build_file = "third_party/civetweb.BUILD",
+    sha256 = "de7d5e7a2d9551d325898c71e41d437d5f7b51e754b242af897f7be96e713a42",
+    strip_prefix = "civetweb-1.11",
+    url = "file://%%WORKDIR%%/third_src/v1.11.tar.gz",
+)
+
+# curlpp
+http_archive(
+    name = "curlpp",
+    build_file = "//:third_party/curlpp.BUILD",
+    sha256 = "97e3819bdcffc3e4047b6ac57ca14e04af85380bd93afe314bee9dd5c7f46a0a",
+    strip_prefix = "curlpp-0.8.1",
+    url = "file://%%WORKDIR%%/third_src/curlpp-0.8.1.tar.gz",
+)
+
+#ros
+new_local_repository(
+    name = "ros",
+    build_file = "third_party/ros.BUILD",
+    path = "%%WORKDIR%%/third_src/ros",
+)
+
+# PCL 1.7
+# =======
+# This requires libpcl-dev to be installed in your Ubuntu/Debian.
+new_local_repository(
+    name = "pcl",
+    build_file = "third_party/pcl.BUILD",
+    path = "%%WORKDIR%%/recipe-sysroot/usr/include/pcl-1.8",
+)
+
+new_local_repository(
+    name = "glew",
+    build_file = "third_party/glew.BUILD",
+    path = "/usr/include",
+)
+
+new_local_repository(
+    name = "opengl",
+    build_file = "third_party/opengl.BUILD",
+    path = "/usr/include",
+)
+
+new_local_repository(
+    name = "glfw",
+    build_file = "third_party/glfw.BUILD",
+    path = "/usr/include",
+)
+
+new_local_repository(
+    name = "vtk",
+    build_file = "third_party/vtk.BUILD",
+    path = "/usr/include/vtk-VTK_VERSION",
+)
+
+# Caffe
+new_local_repository(
+    name = "caffe",
+    build_file = "third_party/caffe.BUILD",
+    path = "/usr/include/caffe",
+)
+## tensorrt
+new_local_repository(
+    name = "tensorrt",
+    build_file = "third_party/tensorrt.BUILD",
+    path = "/usr/include/tensorrt",
+)
+
+# YAML-CPP
+http_archive(
+    name = "yaml_cpp",
+    build_file = "third_party/yaml_cpp.BUILD",
+    strip_prefix = "yaml-cpp-yaml-cpp-0.5.3",
+    url = "file://%%WORKDIR%%/third_src/yaml-cpp-0.5.3.zip",
+)
+
+http_archive(
+    name = "qpOASES",
+    build_file = "//:third_party/qpOASES.BUILD",
+    sha256 = "e70b49586b58b8f5fd348e951f3c3094ed0ad371a96097a499f343a7aeec7dbe",
+    strip_prefix = "qp-oases-3.2.1-1",
+    url = "file://%%WORKDIR%%/third_src/qp-oases-3.2.1-1.zip",
+)
+
+# OSQP
+new_local_repository(
+    name = "osqp",
+    build_file = "third_party/osqp.BUILD",
+    path = "%%WORKDIR%%/recipe-sysroot/usr/include",
+)
+
+# IpOpt
+new_local_repository(
+    name = "ipopt",
+    build_file = "third_party/ipopt.BUILD",
+    path = "/usr/local/ipopt/include/coin",
+)
+
+# ADOL-C
+new_local_repository(
+    name = "adolc",
+    build_file = "third_party/adolc.BUILD",
+    path = "/usr/local/adolc/include",
+)
+
+# Cuda
+new_local_repository(
+    name = "cuda",
+    build_file = "third_party/cuda.BUILD",
+    path = "/usr/local/cuda",
+)
+
+# Local-integ
+new_local_repository(
+    name = "local_integ",
+    build_file = "third_party/local_integ.BUILD",
+    path = "/usr/local/apollo/local_integ",
+)
+
+# paddlepaddle
+new_local_repository(
+    name = "paddlepaddle",
+    build_file = "third_party/paddlepaddle.BUILD",
+    path = "/usr/local/apollo/paddlepaddle",
+)
+
+# mkldnn
+new_local_repository(
+    name = "mkldnn",
+    build_file = "third_party/mkldnn.BUILD",
+    path = "/usr/local/apollo/local_third_party/mkldnn",
+)
+
+# mklml
+new_local_repository(
+    name = "mklml",
+    build_file = "third_party/mklml.BUILD",
+    path = "/usr/local/apollo/local_third_party/mklml",
+)
+
+# Proj.4
+http_archive(
+    name = "proj4",
+    build_file = "third_party/proj4.BUILD",
+    strip_prefix = "proj.4-4.9.3",
+    url = "file://%%WORKDIR%%/third_src/proj.4-4.9.3.zip",
+)
+
+# tinyxml2
+http_archive(
+    name = "tinyxml2",
+    build_file = "third_party/tinyxml2.BUILD",
+    strip_prefix = "tinyxml2-5.0.1",
+    url = "file://%%WORKDIR%%/third_src/tinyxml2-5.0.1.zip",
+)
+
+#protobuf 3.3
+http_archive(
+    name = "com_google_protobuf",
+    strip_prefix = "protobuf-3.3.0",
+    url = "file://%%WORKDIR%%/third_src/protobuf-3.3.0.tar.gz",
+    patch_args = ("-p1",),
+    patches = ("//:0001-protobuf.bzl-compatible-with-future-versions-of-Baze.patch",),
+)
+
+#jsoncpp .so for adv_plat
+new_local_repository(
+    name = "jsoncpp",
+    build_file = "third_party/jsoncpp.BUILD",
+    path = "/usr/local/apollo/jsoncpp/",
+)
+
+#xxhash
+new_local_repository(
+    name = "xxhash",
+    build_file = "third_party/xxhash.BUILD",
+    path = "/usr/local/apollo/paddlepaddle_dep/xxhash",
+)
+
+#snappystream
+new_local_repository(
+    name = "snappystream",
+    build_file = "third_party/snappystream.BUILD",
+    path = "/usr/local/apollo/paddlepaddle_dep/snappystream",
+)
+
+#adv_plat
+http_archive(
+    name = "adv_plat",
+    build_file = "third_party/adv_plat.BUILD",
+    sha256 = "0a58dadab924b520d5b5a58ef82fc0f76c2aa4feaaabd49ec9873228c125d513",
+    url = "https://github.com/ApolloAuto/apollo-contrib/releases/download/v3.0.0/plat-sw-3.0.0.1.zip",
+)
+
+# qt
+new_local_repository(
+    name = "qt",
+    build_file = "third_party/qt.BUILD",
+    path = "/usr/local/Qt5.5.1/5.5/gcc_64",
+)
+
+new_local_repository(
+    name = "fastrtps",
+    build_file = "//:third_party/fastrtps.BUILD",
+    path = "%%WORKDIR%%/recipe-sysroot",
+)
+
+# grpc
+http_archive(
+    name = "com_github_grpc_grpc",
+    url = "file://%%WORKDIR%%/third_src/v1.14.2.tar.gz",
+    strip_prefix = "grpc-1.14.2",
+)
+
+load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
+
+grpc_deps()
+
+# python
+new_local_repository(
+    name = "python27",
+    build_file = "third_party/python27.BUILD",
+    path = "%%WORKDIR%%/recipe-sysroot/usr",
+)
+
+# PyTorch
+new_local_repository(
+    name = "pytorch",
+    build_file = "third_party/pytorch.BUILD",
+    path = "/usr/local/apollo/libtorch",
+)
+
+# PyTorch GPU
+new_local_repository(
+    name = "pytorch_gpu",
+    build_file = "third_party/pytorch_gpu.BUILD",
+    path = "/usr/local/apollo/libtorch_gpu",
+)
+
+# ffmpeg
+new_local_repository(
+    name = "ffmpeg",
+    build_file = "third_party/ffmpeg.BUILD",
+    path = "/usr/local/apollo/ffmpeg",
+)
