@@ -42,14 +42,14 @@ $ mkdir <apollo-project>
 $ git clone --branch master --single-branch git://github.com/ros/meta-ros.git
 $ git clone https://github.com/Wind-River/meta-apollo 
 $ git clone --branch WRLINUX_10_18_BASE --single-branch https://github.com/WindRiver-Labs/wrlinux-x
-$ <apollo-project>/wrlinux-x/setup.sh --machines renesas-rcar-h3 --distro wrlinux --all->
+$ <apollo-project>/wrlinux-x/setup.sh --machines renesas-rcar-h3 --distro wrlinux --all-layers --dl-layers
 ```
 ### 2. Prepare build
 ```
 $ . <apollo-project>/oe-init-build-env <build>
 
 # Disable multlib to workaround /usr/lib64 [installed-vs-shipped] QA error from meta-ros
-$ sed -i "s:require conf/multilib.conf:#require conf/multilib.conf:g" <apollo-project>/l>
+$ sed -i "s:require conf/multilib.conf:#require conf/multilib.conf:g" <apollo-project>/layers/wrlinux/wrlinux-distro/conf/distro/wrlinux-common.inc
 
 # Allow fetch from internet
 $ sed -i "s/BB_NO_NETWORK/#BB_NO_NETWORK/" <build>/conf/local.conf
